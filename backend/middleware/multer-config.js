@@ -1,0 +1,2 @@
+// Ce fichier contient la configuration pour Express qui facilite la gestion des téléchargements de fichiers
+// et qui permet définir les règles de stockage, de nommage et de filtrage des fichiers uploadés

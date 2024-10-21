@@ -1,0 +1,1 @@
+// Ce fichier verifie l'authentification de l'utilisateur pour les routes protégées

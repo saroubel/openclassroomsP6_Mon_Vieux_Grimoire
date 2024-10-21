@@ -21,7 +21,7 @@ const port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 
 
-// Fonction pour gérer les erreurs lors du démarrage du serveur
+// Gestion des erreurs lors du démarrage du serveur
     // Si l'erreur n'est pas liée à l'écoute du serveur, la propager
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
@@ -44,7 +44,7 @@ const errorHandler = error => {
 };
 
 
-// Créer serveur HTTP avec l'app Express
+// Création du serveur HTTP avec l'app Express
 const server = http.createServer(app);
 
 
