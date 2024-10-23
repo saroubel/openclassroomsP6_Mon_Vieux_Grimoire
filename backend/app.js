@@ -3,6 +3,7 @@ const app = express();                               //méthode pour configurati
 const mongoose = require('mongoose');                //biblio ODM (Object Data Modeling) qui facilite les opérations CRUD
 const path = require('path');                        //manipuler les chemins de fichiers
 require("dotenv").config({ path: ".env" });          //Charge les variables d'environnement
+
 // const userRoutes = require('./routes/user');         
 // const bookRoutes = require('./routes/book');
 
