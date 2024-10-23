@@ -1,4 +1,4 @@
-//controllers
+//Controllers
 
 const User = require('../models/user')             //pour interagir avec la BD
 const bcrypt = require('bcrypt')                   //module pour le hachage du mdp avec une technique "salage"
