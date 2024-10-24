@@ -10,9 +10,8 @@ router.post('/signup', userCtrl.signup)     //route pour inscription
 router.post('/login', userCtrl.login)       //route pour connexion
 
 
-
-//GET Routes pour lister les utilisateurs dans la BD
-router.get('/users', userCtrl.getUsers)
+//GET Routes 
+router.get('/users', userCtrl.getUsers)     //liste des utilisateurs dans la BD
 
 
 
