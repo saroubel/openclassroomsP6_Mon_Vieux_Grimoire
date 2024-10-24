@@ -20,11 +20,6 @@ app.use((req, res, next) => {
     next();
   })
 
-// Middleware pour gestion des erreurs 404
-app.use((req, res, next) => {
-    res.status(404).send("Not Found");
-    next();
-})
 
 
 // Connexion à la base de données MongoDB
@@ -37,6 +32,14 @@ mongoose.connect(process.env.MONGODB_CLUSTER_URL,
 // Routes
 app.use('/api/auth', userRoutes)
 // app.use('/api/books', bookRoutes)
+
+
+
+// Middleware pour gestion des erreurs 404
+app.use((req, res, next) => {
+    res.status(404).send("Not Found");
+    next();
+})
 
 
 //Exporter app 

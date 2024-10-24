@@ -31,11 +31,21 @@ exports.signup = (req, res, next) => {
         const user = new User({ email, password: hash })    //Création nv user 
         user.save()                                         //Sauvegarde user dans BD
           .then(() => res.status(201).json({ message: 'Utilisateur est créé avec succès !' }))
-          .catch(error => res.status(400).json({ error: 'Erreur lors de la création de l\'utilisateur' }))
+          // .catch(error => res.status(400).json({ error: 'Erreur lors de la création de l\'utilisateur' }))
+          .catch(error => {console.error('Erreur lors de la création de l\'utilisateur:', error)
+            res.status(400).json({ error: 'Erreur lors de la création de l\'utilisateur' })
+          })
       })
       .catch(error => res.status(500).json({ error: 'Erreur serveur lors de l\'hachage du mot de passe.' }))
   }
 
+
+//liste des utilisateurs//
+exports.getUsers = (req, res, next) => {
+    User.find()
+      .then(users => res.status(200).json(users))
+      .catch(error => res.status(400).json({ error: 'Erreur lors de la recherche des utilisateurs.' }))
+}
 
 
 //connexion//
