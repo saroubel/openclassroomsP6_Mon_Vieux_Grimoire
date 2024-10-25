@@ -26,10 +26,12 @@ exports.signup = (req, res, next) => {
     }
   
     //Hachage du mdp avant l'enregistrer dans BD
-    bcrypt.hash(password, 10)                               //10: nombre de fois que le mdp sera hacher
+    bcrypt.hash(password, 10)   //10: nombre de fois que le mdp sera hacher
       .then(hash => {
-        const user = new User({ email, password: hash })    //Création nv user 
-        user.save()                                         //Sauvegarde user dans BD
+    //Création nv user     
+        const user = new User({ email, password: hash })    
+    //Sauvegarde user dans BD
+        user.save()                                         
           .then(() => res.status(201).json({ message: 'Utilisateur est créé avec succès !' }))
           .catch(error => {console.error('Erreur lors de la création de l\'utilisateur:', error)
             res.status(400).json({ error: 'Erreur lors de la création de l\'utilisateur' })

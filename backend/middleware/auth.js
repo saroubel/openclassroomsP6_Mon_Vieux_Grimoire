@@ -1,1 +1,1 @@
-// Ce fichier verifie l'authentification de l'utilisateur pour sécuriser les routes dans l'API
+// Ce fichier vérifie l'authentification de l'utilisateur pour sécuriser les routes dans l'API

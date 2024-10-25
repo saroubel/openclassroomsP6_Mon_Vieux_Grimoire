@@ -3,11 +3,12 @@
 const express = require('express')         
 const router = express.Router()             
 const bookCtrl = require('../controllers/book') 
+const auth = require('../middleware/auth')
 
 
 //POST Routes
-router.post('/', bookCtrl.createBook)                   //ajouter un livre
-router.post('/:id/rating', bookCtrl.rateBook)           //noter un livre
+router.post('/', auth, multer, bookCtrl.createBook)     //ajouter un livre
+router.post('/:id/rating', auth, bookCtrl.rateBook)     //noter un livre
 
 
 //GET Routes
@@ -17,12 +18,11 @@ router.get('/bestrating', bookCtrl.getBestRating)       //meilleurs livres par n
 
 
 //PUT Routes
-router.put('/:id', bookCtrl.updateBook)                 //modifier un livre par id
+router.put('/:id', auth, bookCtrl.updateBook)           //modifier un livre par id
 
 
 //DELETE Routes
-router.delete('/:id', bookCtrl.deleteBook)              //supprimer un livre par id
-
+router.delete('/:id', auth, bookCtrl.deleteBook)        //supprimer un livre par id
 
 
 module.exports = router
