@@ -5,7 +5,7 @@ const path = require('path')                        //manipuler les chemins de f
 require("dotenv").config({ path: ".env" })          //Charge les variables d'environnement
 
 const userRoutes = require('./routes/user')         
-// const bookRoutes = require('./routes/book')
+const bookRoutes = require('./routes/book')
 
 
 
@@ -31,7 +31,7 @@ mongoose.connect(process.env.MONGODB_CLUSTER_URL,
 
 // Routes à utiliser 
 app.use('/api/auth', userRoutes)
-// app.use('/api/books', bookRoutes)
+app.use('/api/books', bookRoutes)
 
 
 
