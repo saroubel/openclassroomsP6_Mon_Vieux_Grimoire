@@ -3,7 +3,7 @@
 const Book = require('../models/book')
 
 
-// Création d'un nv livre
+//Création d'un nouveau livre
 exports.createBook = (req, res, next) => {
   try {
     //Reception des infos du corps de la requête
@@ -29,3 +29,15 @@ exports.createBook = (req, res, next) => {
     res.status(400).json({ error: 'Données invalides' })
   }
 }
+
+
+
+//Affichage d'un livre par son id
+exports.getOneBook = (req, res, next) => {
+    Book.findOne({ _id: req.params.id })                                                //findOne(): méthode de moongoose pour chercher dans BD
+      .then(book => {                                                                   //req.params.id: ID du livre passé dans l'URL de la requête
+        if (!book) return res.status(404).json({ message: 'Livre non trouvé!' })        
+        res.status(200).json(book)                                                      //200 : renvoie le livre trouvé
+      })
+      .catch(error => res.status(500).json({ error: error.message }))
+  }
