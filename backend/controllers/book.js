@@ -41,3 +41,32 @@ exports.getOneBook = (req, res, next) => {
       })
       .catch(error => res.status(500).json({ error: error.message }))
   }
+
+
+
+//Affichage de tous les livres
+exports.getAllBooks = (req, res, next) => {
+    Book.find()
+      .then(books => res.status(200).json(books))
+      .catch(error => res.status(400).json({ error: error.message }))
+  }
+
+
+
+//Affichage des livres les mieux notés
+exports.getBestRating = (req, res, next) => {
+    console.log('Récupération des livres les mieux notés')
+    Book.find()
+    .sort({ averageRating: -1 })                                //Trie les livres par note moyenne décroissante
+    .limit(3)                                                   //Limite résultat aux 3 premiers livres
+      
+    .then(books => {
+        console.log('Livres récupérés avec succès', books)
+        res.status(200).json(books)                             //Envoie les livres 
+      })
+
+    .catch(error => {
+        console.error('Erreur lors de la récupération des livres les mieux notés', error)
+        res.status(500).json({ error: error.message })
+    })
+  }

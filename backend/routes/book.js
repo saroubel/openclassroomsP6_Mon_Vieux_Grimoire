@@ -12,9 +12,9 @@ router.post('/', auth, upload.single('image'), bookCtrl.createBook)     //ajoute
 
 
 //GET Routes
-// router.get('/bestrating', bookCtrl.getBestRating)               //meilleurs livres par note
+router.get('/bestrating', bookCtrl.getBestRating)               //meilleurs livres par note
 router.get('/:id', bookCtrl.getOneBook)                         //livre par id
-// router.get('/', bookCtrl.getAllBooks)                           //liste des livres
+router.get('/', bookCtrl.getAllBooks)                           //liste des livres
 
 
 //PUT Routes
