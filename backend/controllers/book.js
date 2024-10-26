@@ -16,8 +16,9 @@ exports.createBook = (req, res, next) => {
     //Crée nv objet Book avec les info reçues
     const book = new Book({
       ...bookObject,                //spread operator pour copie tout les info de l'objet
-      userId: req.auth.userId,      //auth middleware pour sécuriser la route d'ajout juste pour l'utilisateur connecté
-      imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null 
+      userId: req.auth.userId,      //auth middleware pour sécuriser la route d'ajout juste pour user connecté
+      imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null     //req.protocol pour obtenir le premier segment http
+                                                                                                         //req.get('host') pour obtenir l'adresse du serveur (localhost:3000)
     })
 
     //Sauvegarde livre dans BD
@@ -57,7 +58,7 @@ exports.getAllBooks = (req, res, next) => {
 exports.getBestRating = (req, res, next) => {
     console.log('Récupération des livres les mieux notés')
     Book.find()
-    .sort({ averageRating: -1 })                                //Trie les livres par note moyenne décroissante
+    .sort({ averageRating: -1 })                                //Trie les livres par note moyenne décroissante, averageRating=note moyenne
     .limit(3)                                                   //Limite résultat aux 3 premiers livres
       
     .then(books => {
@@ -70,3 +71,7 @@ exports.getBestRating = (req, res, next) => {
         res.status(500).json({ error: error.message })
     })
   }
+
+
+  
+//Modification d'un livre par son id  

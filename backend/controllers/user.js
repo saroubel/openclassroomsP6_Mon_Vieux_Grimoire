@@ -53,7 +53,7 @@ exports.login = (req, res, next) => {
           return res.status(401).json({ error: 'Utilisateur non trouvable !' })
         }
 
-        //Comparaison entre mdp saisie et mdp de bcrypt
+        //Comparaison entre mdp saisie et mdp de bcrypt qui est haché et enregistré dans BD
         bcrypt.compare(password, user.password)
           .then(valid => {
             if (!valid) { 

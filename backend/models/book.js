@@ -22,9 +22,9 @@ const bookSchema = new mongoose.Schema({
 //mise à jour de la note moyenne
 bookSchema.methods.updateAverageRating = function () {
   //somme = cummul des notes + note , initialiser à 0
-  const sum = this.ratings.reduce((accumulator, rating) => accumulator + rating.grade, 0); 
+  const sum = this.ratings.reduce((accumulator, rating) => accumulator + rating.grade, 0) 
   //moyenne = si il y a des notes, (la somme des notes / nombre de notes) , sinon 0
-  this.averageRating = this.ratings.length ? sum / this.ratings.length : 0;
+  this.averageRating = this.ratings.length ? sum / this.ratings.length : 0
 }
 
 

@@ -21,6 +21,9 @@ app.use((req, res, next) => {
   })
 
 
+// Middleware pour servir les fichiers statiques (images) - afficher dans frontend 
+app.use('/images', express.static(path.join(__dirname, 'images')))
+
 
 // Connexion à la base de données MongoDB
 mongoose.connect(process.env.MONGODB_CLUSTER_URL,
