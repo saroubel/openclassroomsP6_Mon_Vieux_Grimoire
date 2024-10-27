@@ -1,6 +1,8 @@
 //la configuration qui facilite la gestion des téléchargements de fichiers
 
-const multer = require('multer')    //module pour télécharger des fichiers
+const multer = require('multer')    
+// const fs = require('fs');
+// const path = require('path');
 
 //Configuration des types MIME
 const MIME_TYPES = {

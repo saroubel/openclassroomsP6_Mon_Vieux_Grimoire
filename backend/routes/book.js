@@ -12,17 +12,17 @@ router.post('/', auth, upload.single('image'), bookCtrl.createBook)     //ajoute
 
 
 //GET Routes
-router.get('/:id', bookCtrl.getOneBook)                         //livre par id
-router.get('/', bookCtrl.getAllBooks)                           //liste des livres
-router.get('/bestrating', bookCtrl.getBestRating)               //meilleurs livres par note
+router.get('/:id', bookCtrl.getOneBook)                                 //livre par id
+router.get('/', bookCtrl.getAllBooks)                                   //liste des livres
+router.get('/bestrating', bookCtrl.getBestRating)                       //meilleurs livres par note
 
 
 //PUT Routes
-// router.put('/:id', auth, upload.single('image'), bookCtrl.updateBook) //modifier un livre par id
+router.put('/:id', auth, upload.single('image'), bookCtrl.updateBook)   //modifier un livre par id
 
 
 //DELETE Routes
-// router.delete('/:id', auth, bookCtrl.deleteBook)                //supprimer un livre par id
+// router.delete('/:id', auth, bookCtrl.deleteBook)                        //supprimer un livre par id
 
 
 module.exports = router

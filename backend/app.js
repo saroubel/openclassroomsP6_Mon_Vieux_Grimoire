@@ -12,6 +12,7 @@ const bookRoutes = require('./routes/book')
 // Middleware pour analyser les requêtes JSON
 app.use(express.json())
 
+
 // Middleware pour gérer les headers CORS 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*'); // Accède à l'API depuis n'importe quelle origine
