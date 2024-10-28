@@ -1,6 +1,6 @@
 //Models
 
-const mongoose = require('mongoose');                                   //pour interagir avec MongoDB
+const mongoose = require('mongoose');   //pour interagir avec MongoDB
 
 
 //création du schéma livre qui contient les champs
@@ -13,9 +13,9 @@ const bookSchema = new mongoose.Schema({
   genre: { type: String, required: true },
   ratings: [{
     userId: { type: String, required: true },
-    grade: { type: Number, min: 1, max: 5, required: true } // Note entre 1 et 5
+    grade: { type: Number, min: 1, max: 5, required: true }   // Note entre 1 et 5
   }],
-  averageRating: { type: Number, default: 0 } // Note moyenne
+  averageRating: { type: Number, default: 0 }                 // Note moyenne
 })
 
 

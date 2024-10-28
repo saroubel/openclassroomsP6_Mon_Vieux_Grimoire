@@ -3,8 +3,11 @@
 const express = require('express')         
 const router = express.Router()             
 const bookCtrl = require('../controllers/book') 
-const auth = require('../middleware/auth')                      //middleware pour authentifier l'utilisateur
-const { upload } = require('../middleware/multer-config')       //importation de la config multer
+const auth = require('../middleware/auth')                      
+const { upload } = require('../middleware/multer-config')       //la config multer pour stockage fichier
+
+
+
 
 //POST Routes
 router.post('/', auth, upload.single('image'), bookCtrl.createBook)     //ajouter un livre
