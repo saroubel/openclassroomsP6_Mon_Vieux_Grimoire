@@ -143,6 +143,33 @@ exports.updateBook = async (req, res, next) => {
 
 
 
-
 //Suppression d'un livre//
+exports.deleteBook = (req, res, next) => {
+
+    //* Recherche du livre dans BD
+    Book.findOne({ _id: req.params.id })
+      .then(book => {
+        if (!book) return res.status(404).json({ message: 'Livre non trouvé!' })
+        if (book.userId !== req.auth.userId) return res.status(401).json({ message: 'Non autorisé' });
+
+        //* Suppression de l'image
+        const filename = book.imageUrl.split('/images/')[1] //recup nom de fichier grâce à split 
+        fs.unlink(`images/${filename}`, err => {
+          if (err) {
+            console.error(`Erreur lors de la suppression de l'image: ${err.message}`)
+            return res.status(500).json({ error: 'Erreur lors de la suppression de l\'image' })
+          }
+  
+          //* Suppression du livre
+          Book.deleteOne({ _id: req.params.id })
+            .then(() => res.status(200).json({ message: 'Livre supprimé' }))
+            .catch(error => res.status(400).json({ error: `Erreur lors de la suppression du livre: ${error.message}` }))
+        });
+      })
+
+      .catch(error => res.status(500).json({ error: `Erreur lors de la recherche du livre: ${error.message}` }))
+  }
+
+
+
 //Notation d'un livre//

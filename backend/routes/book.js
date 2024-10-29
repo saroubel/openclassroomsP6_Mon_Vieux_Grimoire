@@ -25,7 +25,7 @@ router.put('/:id', auth, upload.single('image'), bookCtrl.updateBook)   //modifi
 
 
 //DELETE Routes
-// router.delete('/:id', auth, bookCtrl.deleteBook)                        //supprimer un livre par id
+router.delete('/:id', auth, bookCtrl.deleteBook)                        //supprimer un livre par id
 
 
 module.exports = router
