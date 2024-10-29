@@ -103,12 +103,12 @@ exports.updateBook = async (req, res, next) => {
             //converti la note en nombre
             const grade = Number(bookObject.rating); 
 
-            //verification que la note doit être comprise entre 1 et 5
+            //verifié que la note est entre 1 et 5
             if (grade < 1 || grade > 5) { 
                 return res.status(400).json({ message: "La note doit être comprise entre 1 et 5." })
             }
 
-            //recherche si l'utilisateur a déja noté, modifier la note existante sinon ajouter une nouvelle
+            //verifié si l'utilisateur a déja noté, modifier la note existante sinon ajouter une nouvelle
             const existingRating = book.ratings.findIndex(r => r.userId.toString() === bookObject.userId)
             if (existingRating > -1) {
                 book.ratings[existingRating].grade = grade
@@ -150,7 +150,7 @@ exports.deleteBook = (req, res, next) => {
     Book.findOne({ _id: req.params.id })
       .then(book => {
         if (!book) return res.status(404).json({ message: 'Livre non trouvé!' })
-        if (book.userId !== req.auth.userId) return res.status(401).json({ message: 'Non autorisé' });
+        if (book.userId !== req.auth.userId) return res.status(401).json({ message: 'Utilisateur NON autorisé à supprimer' });
 
         //* Suppression de l'image
         const filename = book.imageUrl.split('/images/')[1] //recup nom de fichier grâce à split 
@@ -173,3 +173,35 @@ exports.deleteBook = (req, res, next) => {
 
 
 //Notation d'un livre//
+exports.rateBook = (req, res, next) => {
+    const userId = req.body.userId;
+    const grade = Number(req.body.rating);
+
+    // Vérifie que la note est entre 1 et 5
+    if (grade < 1 || grade > 5) {
+    return res.status(400).json({ message: "La note doit être comprise entre 1 et 5." })
+  }
+
+    // Recherche le livre à noter
+    Book.findOne({ _id: req.params.id })
+    .then(book => {
+        if (!book) {
+        return res.status(404).json({ message: "Livre non trouvé!" });
+        }
+        // Vérifie que l'utilisateur n'a pas déjà noté ce livre
+        const existingRating = book.ratings.findIndex(r => r.userId.toString() === userId)
+        if (existingRating > -1) {
+            return res.status(400).json({ message: "L'utilisateur a déjà noté ce livre" });
+        }
+        // Ajoute la nouvelle note au tableau de notations
+        book.ratings.push({ userId, grade });
+        // Recalcul la moyenne des notes
+        const totalGrade = book.ratings.reduce((accumulator, currentValue) => accumulator + currentValue.grade, 0)
+        book.averageRating = parseFloat((totalGrade / book.ratings.length).toFixed(1))
+        // Sauvegarde les modifications dans la base de données
+        book.save()
+        .then(() => res.status(200).json(book))
+        .catch(error => res.status(500).json({ error: 'Erreur lors de la sauvegarde de la note' }))
+    })
+    .catch(error => res.status(500).json({ error: 'Erreur lors de la recherche du livre' }))
+}

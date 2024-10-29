@@ -11,13 +11,14 @@ const { upload } = require('../middleware/multer-config')       //la config mult
 
 //POST Routes
 router.post('/', auth, upload.single('image'), bookCtrl.createBook)     //ajouter un livre
-// router.post('/:id/rating', auth, bookCtrl.rateBook)                     //noter un livre
+router.post('/:id/rating', auth, bookCtrl.rateBook)                     //noter un livre
 
 
 //GET Routes
+router.get('/bestrating', bookCtrl.getBestRating)                       //meilleurs livres par note
 router.get('/:id', bookCtrl.getOneBook)                                 //livre par id
 router.get('/', bookCtrl.getAllBooks)                                   //liste des livres
-router.get('/bestrating', bookCtrl.getBestRating)                       //meilleurs livres par note
+
 
 
 //PUT Routes
