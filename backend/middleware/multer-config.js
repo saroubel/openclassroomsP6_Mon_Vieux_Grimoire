@@ -68,5 +68,4 @@ const optimizeImage = async (req, res, next) => {
 }
 
 
-
 module.exports = {upload, optimizeImage};
