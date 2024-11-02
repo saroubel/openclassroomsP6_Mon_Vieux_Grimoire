@@ -174,8 +174,8 @@ exports.deleteBook = (req, res, next) => {
 
 //Notation d'un livre//
 exports.rateBook = (req, res, next) => {
-    const userId = req.body.userId;
-    const grade = Number(req.body.rating);
+    const userId = req.body.userId; //id de l'utilisateur qui note
+    const grade = Number(req.body.rating); //note en nombre
 
     // Vérifie que la note est entre 1 et 5
     if (grade < 1 || grade > 5) {
@@ -188,16 +188,20 @@ exports.rateBook = (req, res, next) => {
         if (!book) {
         return res.status(404).json({ message: "Livre non trouvé!" });
         }
+
         // Vérifie que l'utilisateur n'a pas déjà noté ce livre
         const existingRating = book.ratings.findIndex(r => r.userId.toString() === userId)
         if (existingRating > -1) {
             return res.status(400).json({ message: "L'utilisateur a déjà noté ce livre" });
         }
+
         // Ajoute la nouvelle note au tableau de notations
         book.ratings.push({ userId, grade });
+
         // Recalcul la moyenne des notes
         const totalGrade = book.ratings.reduce((accumulator, currentValue) => accumulator + currentValue.grade, 0)
         book.averageRating = parseFloat((totalGrade / book.ratings.length).toFixed(1))
+        
         // Sauvegarde les modifications dans la base de données
         book.save()
         .then(() => res.status(200).json(book))
